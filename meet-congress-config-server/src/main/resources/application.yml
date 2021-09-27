@@ -1,0 +1,6 @@
+spring.application.name: config-server
+server.port: 8888
+
+configuration.text: Configurando ambiente Desarrollo
+spring.cloud.config.server.git.default-label: dev
+spring.cloud.config.server.git.uri: https://github.com/DxrosNgu/environment-properties.git
