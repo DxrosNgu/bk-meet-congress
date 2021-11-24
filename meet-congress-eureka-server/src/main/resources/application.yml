@@ -4,6 +4,9 @@ server.port: 8761
 eureka.client.register-with-eureka: false
 eureka.client.fetch-registry: false
 
+logging.level.com.netflix.eureka: OFF
+logging.level.com.netflix.discovery: OFF
+
 #spring.zipkin.sender.type: rabbit
 #spring.zipkin.rabbitmq.queue: zipkin
 #spring.rabbitmq.username: guest
