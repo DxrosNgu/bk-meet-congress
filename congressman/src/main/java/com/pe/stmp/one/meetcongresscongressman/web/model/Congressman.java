@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
@@ -14,7 +15,9 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "congressman")
-public class Congressman {
+public class Congressman implements Serializable {
+
+   private static final long serialVersionUID = -5759957145202706414L;
 
    @Id
    @Column(name = "member_id", nullable = false)
@@ -22,8 +25,8 @@ public class Congressman {
    private Integer memberId;
 
    @Column(name = "deparment_id")
-
    private Integer departmentId;
+
    @Column(name = "condition_id")
    private Integer conditionId;
 
