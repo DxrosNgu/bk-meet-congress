@@ -1,0 +1,24 @@
+spring.application.name: servicio-oauth
+server.port: 9100
+
+#spring.cloud.config.uri: http://config-server:8888
+management.endpoints.web.exposure.include: "*"
+
+eureka.client.service-url.defaultZone: http://localhost:8761/eureka
+
+#Database
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/meet_congress?charSet=UTF8
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: root
+  jpa.database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+  jpa.show-sql: false
+  jpa.hibernate.ddl-auto: validate
+
+logging.level.org.hibernate.SQL: debug
+
+config.security.oauth.client.id: frontendapp
+config.security.oauth.client.secret: 12345
+config.security.oauth.jwt.key: key
