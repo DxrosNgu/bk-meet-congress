@@ -1,4 +1,4 @@
-package com.pe.stmp.one.meetcongresscongressman.configuration;
+package com.pe.stmp.one.meetcongress.congressman.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -10,8 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories
-@EntityScan( basePackages = "com.pe.stmp.one.meetcongresscongressman.web.model")
 public class ConfigProperties {
 
     @Value("${spring.datasource.url}")

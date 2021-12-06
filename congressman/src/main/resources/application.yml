@@ -1,6 +1,5 @@
 spring.application.name: congressman-service
-server:
-  port: 8081
+server.port: 8081
 
 eureka:
   instance:
