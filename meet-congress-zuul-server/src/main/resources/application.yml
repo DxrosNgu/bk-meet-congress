@@ -1,30 +1,41 @@
-spring.application.name: servicio-zuul-server
-spring:
-  cloud:
-    config:
-      uri: http://config-server:8888
+spring.application.name: server-zuul-service
+#spring:
+#  cloud:
+#    config:
+#      uri: http://localhost:8888
 server.port: 8190
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: *
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
 
 eureka.client.service-url.defaultZone: http://localhost:8761/eureka/
 
-#zuul.routes.productos.service-id: servicio-productos
-#zuul.routes.productos.path: /api/productos/**
+zuul.routes.congressman.service-id: congressman-service
+zuul.routes.congressman.path: /api/congressman/**
 #
 #zuul.routes.items.service-id: servicio-items
 #zuul.routes.items.path: /api/items/**
 #
-#zuul.routes.users.service-id: servicio-usuarios
-#zuul.routes.users.path: /api/users/**
+zuul.routes.users.service-id: user-management-service
+zuul.routes.users.path: /api/users/**
 
-zuul.routes.security.service-id: servicio-oauth
+zuul.routes.security.service-id: oauth-service
 zuul.routes.security.path: /api/security/**
 zuul.routes.security.sensitive-headers: Cookie,Set-Cookie
+
+
+config.security.oauth:
+  client:
+    id: frontendapp
+    secret: 12345
+  jwt.key: key
+
+oauth-service:
+  ribbon:
+    listOfServers: http://localhost:8190
 
 #hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
 #ribbon.ConnectTimeout: 9000
