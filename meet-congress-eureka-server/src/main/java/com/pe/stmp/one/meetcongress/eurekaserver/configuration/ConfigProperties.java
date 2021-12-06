@@ -1,4 +1,4 @@
-package com.pe.stmp.one.meetcongresseurekaserver.configuration;
+package com.pe.stmp.one.meetcongress.eurekaserver.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

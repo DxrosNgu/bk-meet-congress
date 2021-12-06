@@ -1,4 +1,4 @@
-package com.pe.stmp.one.meetcongresseurekaserver;
+package com.pe.stmp.one.meetcongress.eurekaserver;
 
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.beans.factory.annotation.Autowired;
