@@ -1,5 +1,6 @@
 package com.pe.stmp.one.meetcongressoauth.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name="Roles")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 8002202019413072109L;

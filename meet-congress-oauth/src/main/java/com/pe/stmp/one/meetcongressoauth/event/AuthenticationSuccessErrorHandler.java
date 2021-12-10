@@ -1,7 +1,8 @@
 package com.pe.stmp.one.meetcongressoauth.event;
 
+import com.pe.stmp.one.meetcongressoauth.mapper.UserMapper;
 import com.pe.stmp.one.meetcongressoauth.models.User;
-import com.pe.stmp.one.meetcongressoauth.services.IUserService;
+import com.pe.stmp.one.meetcongressoauth.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,10 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
     private final Logger log = LoggerFactory.getLogger(AuthenticationSuccessErrorHandler.class);
 
     @Autowired
-    private IUserService iUserService;
+    private UserService iUserService;
 
+    @Autowired
+    UserMapper userMapper;
 
     @Override
     public void publishAuthenticationSuccess(Authentication authentication) {
@@ -31,7 +34,7 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
         System.out.println(message);
         log.info(message);
 
-        User usuario = iUserService.findByUsername(user.getUsername());
+        User usuario = userMapper.toUser(iUserService.findByUsername(user.getUsername()));
 
         if(usuario.getIntentos() != null && usuario.getIntentos() > 0){
             usuario.setIntentos(0);
@@ -47,14 +50,14 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
         StringBuilder errors = new StringBuilder();
 
         errors.append(message);
-        User user = iUserService.findByUsername(authentication.getName());
+        User user = userMapper.toUser(iUserService.findByUsername(authentication.getName()));
 
         if (user.getIntentos() == null) {
             user.setIntentos(0);
         }
         String errorAttemp = String.format("Intento actual, %s de ingreso del usuario.", user.getIntentos());
         log.error(errorAttemp);
-        errors.append(" - " +errorAttemp);
+        errors.append(" - ").append(errorAttemp);
         String errorMaxAttemps = String.format("Maximo de intento superado usuario %s se encuenta bloqueado.", user.getUsername());
         user.setIntentos(user.getIntentos() + 1);
         if (user.getIntentos() >= 3){

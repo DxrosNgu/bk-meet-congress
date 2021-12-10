@@ -1,7 +1,8 @@
 package com.pe.stmp.one.meetcongressoauth;
 
 import com.pe.stmp.one.meetcongressoauth.models.User;
-import com.pe.stmp.one.meetcongressoauth.services.IUserService;
+import com.pe.stmp.one.meetcongressoauth.models.UserResponse;
+import com.pe.stmp.one.meetcongressoauth.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -16,13 +17,13 @@ import java.util.Map;
 public class InfoAdditionalToken implements TokenEnhancer {
 
     @Autowired
-    private IUserService iUserService;
+    private UserService userService;
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
-        Map<String, Object> info = new HashMap<String, Object>();
+        Map<String, Object> info = new HashMap<>();
 
-        User user = iUserService.findByUsername(oAuth2Authentication.getName());
+        UserResponse user = userService.findByUsername(oAuth2Authentication.getName());
 
         info.put("name", user.getUsername());
         info.put("lastname", user.getLastName());
