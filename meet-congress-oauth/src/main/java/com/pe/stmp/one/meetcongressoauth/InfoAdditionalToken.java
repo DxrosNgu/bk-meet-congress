@@ -1,6 +1,5 @@
 package com.pe.stmp.one.meetcongressoauth;
 
-import com.pe.stmp.one.meetcongressoauth.models.User;
 import com.pe.stmp.one.meetcongressoauth.models.UserResponse;
 import com.pe.stmp.one.meetcongressoauth.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +24,9 @@ public class InfoAdditionalToken implements TokenEnhancer {
 
         UserResponse user = userService.findByUsername(oAuth2Authentication.getName());
 
-        info.put("name", user.getUsername());
+        info.put("firstname", user.getFirstName());
         info.put("lastname", user.getLastName());
-        info.put("mail", user.getEmail());
+        info.put("email", user.getEmail());
         ((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(info);
 
         return oAuth2AccessToken;

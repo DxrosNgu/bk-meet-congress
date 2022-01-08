@@ -49,15 +49,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         UserManagementClient client = retrofit.create(UserManagementClient.class);
 
         Call<User> user =  client.findByUsername(userName);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("Error de login, no existe el usuario "+ userName+ " en el sistema");
+        }
+
         try {
-        userResponse = userMapper.toUserResponse(user.execute().body()) ;
+        userResponse = userMapper.toUserResponse(user.execute().body());
         } catch (IOException e){
-            System.out.println(e);
+            log.error(String.valueOf(e));
         }
             List<GrantedAuthority> grantedAuthorities = userResponse.getRoleResponses().stream()
-                    .peek(authority -> log.info("Role: " + authority.getName()))
                     .map(role -> new SimpleGrantedAuthority(role.getName()))
+                    .peek(authority -> log.info("Role: " + authority.getAuthority()))
                     .collect(Collectors.toList());
+
             return new org.springframework.security.core.userdetails.User(userResponse.getUsername(), userResponse.getPassword(),
                     userResponse.getEnabled(), true, true, true, grantedAuthorities);
     }
@@ -95,7 +101,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Call<User> user =  client.findByUsername(username);
         try {
             userResponse = userMapper.toUserResponse(user.execute().body()) ;
-            System.out.println(userResponse);
+            System.out.println("User:"+userResponse.getUsername()+","+userResponse.getFirstName()+","+userResponse.getEnabled());
         } catch (IOException e){
             System.out.println(e);
         }

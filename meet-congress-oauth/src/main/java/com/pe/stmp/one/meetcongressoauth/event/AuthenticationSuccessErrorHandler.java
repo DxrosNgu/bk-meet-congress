@@ -18,7 +18,7 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
     private final Logger log = LoggerFactory.getLogger(AuthenticationSuccessErrorHandler.class);
 
     @Autowired
-    private UserService iUserService;
+    private UserService userService;
 
     @Autowired
     UserMapper userMapper;
@@ -31,14 +31,13 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 
         UserDetails user = (UserDetails) authentication.getPrincipal();
         String message = "Success Login: " + user.getUsername();
-        System.out.println(message);
         log.info(message);
 
-        User usuario = userMapper.toUser(iUserService.findByUsername(user.getUsername()));
+        User usuario = userMapper.toUser(userService.findByUsername(user.getUsername()));
 
         if(usuario.getIntentos() != null && usuario.getIntentos() > 0){
             usuario.setIntentos(0);
-            iUserService.update(usuario, usuario.getId());
+            userService.update(usuario, usuario.getId());
         }
     }
 
@@ -50,7 +49,7 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
         StringBuilder errors = new StringBuilder();
 
         errors.append(message);
-        User user = userMapper.toUser(iUserService.findByUsername(authentication.getName()));
+        User user = userMapper.toUser(userService.findByUsername(authentication.getName()));
 
         if (user.getIntentos() == null) {
             user.setIntentos(0);
@@ -65,6 +64,6 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
             errors.append(errorMaxAttemps);
             user.setEnabled(false);
         }
-        iUserService.update(user, user.getId());
+        userService.update(user, user.getId());
     }
 }
