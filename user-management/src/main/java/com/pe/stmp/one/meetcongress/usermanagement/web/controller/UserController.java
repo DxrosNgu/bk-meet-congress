@@ -20,7 +20,7 @@ public class UserController {
 
     @GetMapping(value = "/find-by-user",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> findByUsername (@RequestParam("username") String username){
+    public ResponseEntity<User> findByUsername (@RequestParam("user") String username){
         return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
     }
 
