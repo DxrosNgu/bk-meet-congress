@@ -27,8 +27,8 @@ public class CongressManController {
 
     @GetMapping(value = "/get-member/{id}",
     consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Congressman> getCongresmman(@PathVariable(value = "id") String idMember){
-        return null;
+    public ResponseEntity<Congressman> getCongresmman(@PathVariable(value = "id") Integer idMember){
+        return new ResponseEntity<>(congressManService.getCongressmanById(idMember), HttpStatus.OK);
     }
 
     @PostMapping(value = "/insert-image", consumes = MediaType.APPLICATION_JSON_VALUE,

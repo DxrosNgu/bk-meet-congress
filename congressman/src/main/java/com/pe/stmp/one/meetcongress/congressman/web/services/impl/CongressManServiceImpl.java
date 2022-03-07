@@ -21,7 +21,7 @@ public class CongressManServiceImpl implements CongressManService {
 
     @Override
     public Congressman getCongressmanById(Integer memberId) {
-        return null;
+        return repository.findById(memberId).orElse(new Congressman());
     }
 
     @Override
